@@ -56,6 +56,7 @@ GET /api/classify-number?number=371
     "digit_sum": 11,
     "fun_fact": "371 is a narcissistic number."
 }
+```
 ### Invalid Input
 **Request**:
 ```
