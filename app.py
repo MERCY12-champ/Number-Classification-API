@@ -65,6 +65,13 @@ def get_fun_fact(n):
     except Exception:
         return "No fun fact available."
 
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "message": "Welcome to the Number Classification API!",
+        "usage": "Use /api/classify-number?number=<integer> to classify a number."
+    }), 200
+
 @app.route('/api/classify-number', methods=['GET'])
 def classify_number():
     number = request.args.get('number')
