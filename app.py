@@ -1,15 +1,47 @@
 from flask import Flask, jsonify, request
 import requests
+from flask_cors import CORS
+import functools
+import time
 
 app = Flask(__name__)
+CORS(app)
+
+# Cache decorator
+def cache(timeout=60):
+    def decorator(func):
+        cached_results = {}
+        last_updated = {}
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            key = args + tuple(kwargs.items())
+            current_time = time.time()
+
+            if key in cached_results and (current_time - last_updated[key]) < timeout:
+                return cached_results[key]
+
+            result = func(*args, **kwargs)
+            cached_results[key] = result
+            last_updated[key] = current_time
+            return result
+
+        return wrapper
+    return decorator
 
 # Helper functions
 def is_prime(n):
     if n <= 1:
         return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
+    if n <= 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
             return False
+        i += 6
     return True
 
 def is_perfect(n):
@@ -23,10 +55,13 @@ def is_armstrong(n):
     power = len(digits)
     return sum(digit**power for digit in digits) == abs(n)
 
+@cache(timeout=300)  # Cache results for 5 minutes
 def get_fun_fact(n):
     try:
-        response = requests.get(f"http://numbersapi.com/{n}/math")
+        response = requests.get(f"http://numbersapi.com/{n}/math", timeout=5)
         return response.text if response.status_code == 200 else "No fun fact available."
+    except requests.Timeout:
+        return "No fun fact available due to timeout."
     except Exception:
         return "No fun fact available."
 
@@ -61,4 +96,5 @@ def classify_number():
     return jsonify(response_data), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Bind to 0.0.0.0 to accept connections from outside the container
+    app.run(host='0.0.0.0', port=5000, debug=True)
