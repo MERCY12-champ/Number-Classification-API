@@ -83,7 +83,8 @@ Error Response (400 Bad Request)
     "number": "abc",
     "error": true
 }
-How to Run Locally
+
+## How to Run Locally
 Prerequisites
 Python 3.x
 
