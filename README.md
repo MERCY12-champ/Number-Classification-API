@@ -56,19 +56,23 @@ GET /api/classify-number?number=371
     "digit_sum": 11,
     "fun_fact": "371 is a narcissistic number."
 }
-Invalid Input
-Request:
-
+### Invalid Input
+**Request**:
+```
 GET /api/classify-number?number=abc
-Response:
+```
 
+**Response**:
+```json
 {
     "number": "abc",
     "error": true
 }
-Response Format
-Success Response (200 OK)
+```
 
+## Response Format
+### Success Response (200 OK)
+```json
 {
     "number": 371,
     "is_prime": false,
@@ -77,12 +81,15 @@ Success Response (200 OK)
     "digit_sum": 11,
     "fun_fact": "371 is a narcissistic number."
 }
-Error Response (400 Bad Request)
+```
 
+### Error Response (400 Bad Request)
+```json
 {
     "number": "abc",
     "error": true
 }
+```
 
 ## How to Run Locally
 
@@ -97,101 +104,92 @@ Error Response (400 Bad Request)
    ```bash
    git clone https://github.com/<your-username>/<your-repo-name>.git
    cd <your-repo-name>
-Install dependencies:
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the Flask app:
+   ```bash
+   python app.py
+   ```
+The API will be available at `http://127.0.0.1:5000/api/classify-number`.
 
-pip install -r requirements.txt
-Run the Flask app:
-
-python app.py
-The API will be available at http://127.0.0.1:5000/api/classify-number.
-
-Deployment
+## Deployment
 The API is deployed on Render and is publicly accessible. You can test it using the following URL:
 
-Deployed API URL:
+**Deployed API URL**:  
 https://number-classification-api.onrender.com/api/classify-number
 
-Steps to Deploy on Render
-Sign Up for Render:
-Go to Render and sign up for an account if you haven’t already.
+### Steps to Deploy on Render
+1. **Sign Up for Render**:
+   - Go to Render and sign up for an account if you haven't already.
 
-Create a New Web Service:
+2. **Create a New Web Service**:
+   - Click New + > Web Service
+   - Connect to GitHub and authorize Render to access your GitHub account
+   - Select the repository number-classification-api
 
-Click New + > Web Service.
+3. **Configure the Deployment**:
+   - Name: Optionally, give your service a name (e.g., number-classification-api)
+   - Branch: Ensure the branch is set to main
+   - Region: Choose the region closest to you or your target audience
+   - Environment: Select Python 3
+   - Build Command: Leave it blank (Render will automatically detect requirements.txt)
+   - Start Command: Enter `python app.py`
 
-Connect to GitHub and authorize Render to access your GitHub account.
+4. **Environment Variables (Optional)**:
+   - If you need any environment variables, you can add them here
+   - For this project, you don't need any
 
-Select the repository number-classification-api.
+5. **Advanced Settings (Optional)**:
+   - Configure additional settings like auto-deploy, health checks, etc., if needed
 
-Configure the Deployment:
+6. **Create the Web Service**:
+   - Click Create Web Service
 
-Name: Optionally, give your service a name (e.g., number-classification-api).
+7. **Wait for Deployment**:
+   - Render will automatically build and deploy your application
+   - You can monitor the build process in the Render dashboard
 
-Branch: Ensure the branch is set to main.
+8. **Access Your Deployed API**:
+   - Once the deployment is successful, Render will provide a public URL for your API
+   - It typically looks something like: https://number-classification-api.onrender.com/api/classify-number
 
-Region: Choose the region closest to you or your target audience.
+## Technologies Used
+- **Python**: The programming language used
+- **Flask**: The web framework used to build the API
+- **Requests**: Used to fetch fun facts from the Numbers API
+- **Flask-CORS**: Handles Cross-Origin Resource Sharing (CORS)
+- **Render**: Platform for deploying the API
 
-Environment: Select Python 3.
-
-Build Command: Leave it blank (Render will automatically detect requirements.txt).
-
-Start Command: Enter python app.py.
-
-Environment Variables (Optional):
-If you need any environment variables, you can add them here. For this project, you don’t need any.
-
-Advanced Settings (Optional):
-Configure additional settings like auto-deploy, health checks, etc., if needed.
-
-Create the Web Service:
-Click Create Web Service.
-
-Wait for Deployment:
-Render will automatically build and deploy your application. You can monitor the build process in the Render dashboard.
-
-Access Your Deployed API:
-Once the deployment is successful, Render will provide a public URL for your API. It typically looks something like:
-
-https://number-classification-api.onrender.com/api/classify-number
-Technologies Used
-Python: The programming language used.
-
-Flask: The web framework used to build the API.
-
-Requests: Used to fetch fun facts from the Numbers API.
-
-Flask-CORS: Handles Cross-Origin Resource Sharing (CORS).
-
-Render: Platform for deploying the API.
-
-GitHub Repository
-The source code for this project is hosted on GitHub:
+## GitHub Repository
+The source code for this project is hosted on GitHub:  
 https://github.com/wawiramercy066/number-classification-api
 
-License
+## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-Author
+## Author
 Mercy Wawira
 
 ---
 
-### **How to Use This README**
-1. Replace `<your-username>` with your GitHub username.
-2. Replace `<your-repo-name>` with the name of your GitHub repository.
-3. Replace `https://number-classification-api.onrender.com` with your actual Render deployment URL.
-4. Add a `LICENSE` file to your repository if you want to include licensing information.
+### How to Use This README
+1. Replace `<your-username>` with your GitHub username
+2. Replace `<your-repo-name>` with the name of your GitHub repository
+3. Replace `https://number-classification-api.onrender.com` with your actual Render deployment URL
+4. Add a `LICENSE` file to your repository if you want to include licensing information
 
 ---
 
-### **Final Steps**
+### Final Steps
 1. Push your code to GitHub:
    ```bash
    git add .
    git commit -m "Final version of Number Classification API"
    git push origin main
-Deploy your API to Render (if not already deployed).
-
-Test the deployed API using the provided URL.
-
-Submit your project using the /submit command in the #stage-one-devops channel.
+   ```
+2. Deploy your API to Render (if not already deployed)
+3. Test the deployed API using the provided URL
+4. Submit your project using the /submit command in the #stage-one-devops channel
